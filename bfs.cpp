@@ -1,73 +1,51 @@
-/* Program that shows its time and space complexity, for a given digraph outputs all the vertices reachable from a given starting vertex using BSF method */
-
-#include <iostream>
-#include <vector>
-#include <queue>
-#include <chrono>
+#include <bits/stdc++.h>
 using namespace std;
 
-class Graph
-{
-    int V;                       // Number of vertices
-    vector<vector<int>> adjList; // Adjacency list
-public:
-    Graph(int vertices) : V(vertices) {
-        adjList.resize(V);
-    }  
-
-    void addEdge(int u, int v) {
-        adjList[u].push_back(v);
-    }
-
-    void BFS(int startVertex) {
-        vector<bool> visited(V, false); // Mark all vertices as not visited
-        queue<int> q;                   // Create a queue for BFS
-
-        visited[startVertex] = true; // Mark the current node as visited and enqueue it
-        q.push(startVertex);
-
-        while (!q.empty()) {
-            startVertex = q.front(); // Dequeue a vertex from queue and print it
-            cout << startVertex << " ";
-            q.pop();
-
-            // Get all adjacent vertices of the dequeued vertex.
-            // If an adjacent has not been visited, then mark it visited and enqueue it
-            for (int i = 0; i < adjList[startVertex].size(); ++i) {
-                int adjVertex = adjList[startVertex][i];
-                if (!visited[adjVertex])
-                {
-                    visited[adjVertex] = true;
-                    q.push(adjVertex);
+class Solution {
+    public:
+    // Function to return Breadth First Traversal of given graph.
+    vector<int> bfsOfGraph(int V, vector<int> adj[]) {
+        int vis[V] = {0}; 
+        vis[0] = 1; 
+        queue<int> q;
+        q.push(0);    // push the initial starting node 
+        vector<int> bfs; 
+        
+        while(!q.empty()) {     // iterate till the queue is empty 
+            int node = q.front();    // get the topmost element in the queue 
+            q.pop(); 
+            bfs.push_back(node); 
+            for(auto i : adj[node]) {   // traverse for all its neighbours  
+                if(!vis[i]) {    // if the neighbour has previously not been visited, store in Q and mark as visited
+                    vis[i] = 1; 
+                    q.push(i); 
                 }
             }
         }
+        return bfs; 
     }
 };
 
+void addEdge(vector <int> adj[], int u, int v) {
+    adj[u].push_back(v);
+    adj[v].push_back(u);
+}
+
+void printAns(vector <int> &ans) {
+    for (int i = 0; i < ans.size(); i++)
+        cout << ans[i] << " ";
+}
+
 int main() {
-    int V = 6; // Number of vertices
-    Graph graph(V);
+    vector <int> adj[5];
+    
+    addEdge(adj, 0, 1);
+    addEdge(adj, 1, 2);
+    addEdge(adj, 1, 3);
+    addEdge(adj, 0, 4);
 
-    // Adding edges to the graph
-    graph.addEdge(0, 1);
-    graph.addEdge(0, 2);
-    graph.addEdge(1, 3);
-    graph.addEdge(1, 4);
-    graph.addEdge(2, 4);
-    graph.addEdge(3, 5);
-    graph.addEdge(4, 5);
-
-    int startVertex = 0; // Starting vertex for BFS
-
-    cout << "Vertices reachable from vertex " << startVertex << " using BFS: ";
-    clock_t start,end;
-    start = clock ();
-    graph.BFS(startVertex);
-    end = clock();
-    double time_spent = (double)(end-start)/CLOCKS_PER_SEC;
-    cout<<"\ntime spent: "<<time_spent;
-    cout << endl;
-
+    Solution obj;
+    vector <int> ans = obj.bfsOfGraph(5, adj);
+    printAns(ans);
     return 0;
 }
