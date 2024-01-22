@@ -1,13 +1,11 @@
 /* This program implements the Heap Sort algorithm to sort a given array of integers.*/
 
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
-void heapify(vector<int> &arr, int n, int i)
-{
+void heapify(vector<int> &arr, int n, int i) {
     int largest = i;
-    int left = 2 * i + 1, right = 2 * i + 2;
+    int left = 2*i+1, right = 2*i+2;
 
     if (left < n && arr[left] > arr[largest])
         largest = left;
@@ -15,33 +13,37 @@ void heapify(vector<int> &arr, int n, int i)
         largest = right;
     if (largest != i) {
         swap(arr[i], arr[largest]);
-        heapify(arr, n, largest);
-    }
+        heapify(arr, n, largest); 
+    } 
 }
 
 void heapSort(vector<int> &arr) {
     int n = arr.size();
-    for (int i = n / 2 - 1; i >= 0; i--)
+    for (int i = n/2-1; i>=0; i--)
         heapify(arr, n, i);
-    for (int i = n - 1; i > 0; i--)
-    {
+    for (int i = n-1; i>0; i--){
         swap(arr[0], arr[i]);
         heapify(arr, i, 0);
     }
 }
 
 int main() {
+    auto start = chrono::high_resolution_clock::now();
     vector<int> studentIds = {4, 2, 9, 5, 1, 8, 3, 7};
     cout << "Unsorted IDs: ";
-    for (int id : studentIds)
+    for (int id : studentIds) 
         cout << id << " ";
     cout << endl;
     
     heapSort(studentIds);
 
-    cout << "Sorted IDs: ";
+    cout << "Sorted IDs:   ";
     for (int id : studentIds)
         cout << id << " ";
     cout << endl;
+
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> duration = end - start;
+    cout << "Time Complexity: " << duration.count() << " seconds" << endl;   // 0
     return 0;
 }
