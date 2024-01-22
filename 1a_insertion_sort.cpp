@@ -1,5 +1,4 @@
-#include <iostream>
-#include <chrono>
+#include <bits/stdc++.h>
 using namespace std;
 
 void insertion_sort(int arr[], int n) {
@@ -12,9 +11,6 @@ void insertion_sort(int arr[], int n) {
             j--;
         }
     }
-    cout << "\n\nAfter Insertion sort: ";
-    for (int i = 0; i < n; i++)
-        cout << arr[i] << " ";
 }
 
 int main() {
@@ -27,10 +23,13 @@ int main() {
         cout << arr[i] << " ";
 
     insertion_sort(arr, n);
+    
+    cout <<"\nAfter Insertion sort: ";
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
 
     auto end = chrono::high_resolution_clock::now();
     auto executeTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
-    cout << "\n\nInsertion sort takes: " << executeTime << "ms" << endl;
-
+    cout <<"\nInsertion sort takes: " << executeTime << " ms" << endl;
     return 0;
 }
