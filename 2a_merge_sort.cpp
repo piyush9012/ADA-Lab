@@ -19,18 +19,17 @@ void merge(vector<int> &arr, int low, int mid, int high) {
         }
     }
 
-    while (left <= mid) {     // if elements on the left half are still left //
+    while (left <= mid) {     // if elements on the left half are still left
         temp.push_back(arr[left]);
         left++;
     }
 
-    while (right <= high) {    //  if elements on the right half are still left //
+    while (right <= high) {    //  if elements on the right half are still left
         temp.push_back(arr[right]);
         right++;
     }
 
-    // transfering all elements from temporary to arr //
-    for (int i = low; i <= high; i++) {
+    for (int i = low; i<=high; i++) { // transfering all elements from temporary to arr
         arr[i] = temp[i - low];
     }
 }
@@ -44,20 +43,23 @@ void mergeSort(vector<int> &arr, int low, int high) {
 }
 
 int main() {
-
+    auto start = chrono::high_resolution_clock::now();
     vector<int> arr = {9, 4, 7, 6, 3, 1, 5}  ;
     int n = 7;
 
     cout << "Before Sorting Array: " << endl;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
         cout << arr[i] << " "  ;
-    }
     cout << endl;
+
     mergeSort(arr, 0, n - 1);
+
     cout << "After Sorting Array: " << endl;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
         cout << arr[i] << " "  ;
-    }
-    cout << endl;
-    return 0 ;
+
+    auto end = chrono::high_resolution_clock::now();
+    auto executeTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+    cout << "\nMerge sort takes: " << executeTime << " ms" << endl;
+    return 0;
 }
