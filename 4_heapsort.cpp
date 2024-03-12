@@ -28,21 +28,21 @@ void heapSort(vector<int> &arr) {
 }
 
 int main() {
-    auto start = chrono::high_resolution_clock::now();
     vector<int> studentIds = {4, 2, 9, 5, 1, 8, 3, 7};
     cout << "Unsorted IDs: ";
     for (int id : studentIds) 
         cout << id << " ";
     cout << endl;
     
+    auto start = chrono::high_resolution_clock::now();
     heapSort(studentIds);
+    auto end = chrono::high_resolution_clock::now();
 
     cout << "Sorted IDs:   ";
     for (int id : studentIds)
         cout << id << " ";
     cout << endl;
 
-    auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> duration = end - start;
     cout << "Time Complexity: " << duration.count() << " seconds" << endl;   // 0
     return 0;
